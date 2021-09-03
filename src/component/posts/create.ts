@@ -9,10 +9,25 @@ export class Create {
   post: Post;
   error: string;
   router: Router;
+  allTags: string[];
 
   constructor(PostService: PostService, Router: Router) {
     this.postService = PostService;
     this.router = Router;
+  }
+
+  attached(): void {
+    this.post = {
+      title: '',
+      body: '',
+      tags: []
+    }
+    this.postService.allTags()
+      .then(data => {
+        this.allTags = data['tags'];
+      }).catch(error => {
+        this.error = error.message;
+      })
   }
 
   createPost(): void {
