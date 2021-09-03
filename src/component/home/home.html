@@ -1,0 +1,36 @@
+<template>
+  <h1>${message} &mdash; ${todo.fullName}</h1>
+  <ul>
+    <li>
+      <input type="checkbox" checked.bind="todo.done" />
+      <span style="color: red" css="text-decoration: ${todo.done ? 'line-through' : 'none'}">${todo.description} - ${todo.done}</span>
+    </li>
+
+    <li>
+      <label for="name">Employee Name:</label>
+      <input type="text" placeholder="Full Name here" value.bind="todo.fullName" class="form-control" />
+    </li>
+  </ul>
+
+  <hr />
+
+  <h3>Employee Details</h3>
+  <h4 style="color: red;" if.bind="todoList.length === 0">No Employee Found!!!</h4>
+  <ul if.bind="todoList.length >= 1">
+    <li repeat.for="todo of todoList">
+      <input type="checkbox" checked.bind="todo.done" />
+      <a route-href="route: todoDetail; params.bind: { fullName: todo.fullName, description: todo.description}">
+        <span css="text-decoration: ${todo.done ? 'line-through' : 'none'}; color: ${todo.done ? 'red' : 'green'};">
+          ${todo.description} - ${todo.fullName}
+        </span>
+      </a>
+      
+      <button click.delegate="removeTodo(todo)" if.bind="todo.done" class="btn btn-danger ml-2">Remove</button>
+    </li>
+  </ul>
+
+  <form class="form-inline">
+    <input type="text" placeholder="Add New Item" value.bind="newItem" class="form-control" />
+    <button click.delegate="addTodo()" disabled.bind="!newItem" class="btn btn-outline-success">Insert</button>
+  </form>
+</template>

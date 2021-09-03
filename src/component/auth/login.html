@@ -1,0 +1,12 @@
+<template>
+  <h1 class="mb-4">Login</h1>
+
+  <div class="alert alert-danger" if.bind="error">
+    ${error}
+  </div>
+
+  <form submit.delegate="login()">
+    <input type="text" placeholder="Your Name" value.bind="name" class="form-control" />
+    <button class="btn btn-success mt-3">Login</button>
+  </form>
+</template>

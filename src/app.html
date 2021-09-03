@@ -1,0 +1,53 @@
+<template>
+  <require from="bootstrap/dist/css/bootstrap.min.css"></require>
+  <!-- <require from="bootstrap/css/bootstrap.css"></require> -->
+
+  <!-- <ul> -->
+    <!-- <li> -->
+      <!-- <a href="#/">Home</a> -->
+      <!-- <a route-href="home">Home</a>
+    </li>
+    <li> -->
+      <!-- <a href="#/about">About Us</a> -->
+      <!-- <a route-href="about">About Us</a>
+    </li>
+  </ul> -->
+
+  
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="#">Aquila360</a>
+    
+    <!-- Links -->
+    <ul class="navbar-nav" repeat.for="nav of router.navigation">
+      <li class="${nav.isActive ? 'active nav-item' : 'nav-item'}">
+        <a href.bind="nav.href" class="nav-link">${nav.title}</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <!-- Dropdown -->
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          Welcome, ${currentUser || "Guest"}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link ${ router.currentInstruction.config.name === 'login' ? 'active' : '' }" route-href="login" if.bind="!currentUser">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" route-href="login" if.bind="!currentUser">Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" route-href="login" if.bind="currentUser">New Post</a>
+      </li>
+      <li class="nav-item" if.bind="currentUser" click.delegate="logout()">
+        <a class="nav-link" href="#">Logout</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="mt-5 pt-4 container">
+    <!-- <h1>${message}</h1> -->
+    <router-view></router-view>
+  </div>
+</template>
