@@ -8,6 +8,7 @@ export class Create {
   postService: PostService;
   post: Post;
   error: string;
+  newTag: string;
   router: Router;
   allTags: string[];
 
@@ -37,5 +38,11 @@ export class Create {
         this.router.navigateToRoute('post-view', { slug: data["slug"] })
       })
       .catch(error => { this.error = error.message })
+  }
+
+  addTag(): void {
+    this.allTags.push(this.newTag);
+    this.post.tags.push(this.newTag);
+    this.newTag = '';
   }
 }

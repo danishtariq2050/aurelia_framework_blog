@@ -7,21 +7,30 @@
 
   <form submit.delegate="createPost()">
     <div class="form-group">
-      <label for="title">Title</label>
+      <label for="title" class="font-weight-bold">Title</label>
       <input type="text" class="form-control" id='title' placeholder="Your Post Title" value.bind="post.title">
     </div>
 
     <div class="form-group">
-      <label for="body">Body</label>
+      <label for="body" class="font-weight-bold">Body</label>
       <textarea class="form-control" id='body' placeholder="Post Description" rows="10" style="resize: none;" value.bind="post.body"></textarea>
     </div>
 
-    <div class="mb-3">
-      <div class="form-check" repeat.for="tag of allTags">
-        <input type="checkbox" class="form-check-input" value.bind="tag" checked.bind="post.tags">
-        <label class="form-check-label">${tag}</label>
+    <div class="d-flex align-items-start justify-content-between form-group">
+      <div class="w-75">
+        <label class="font-weight-bold mr-3">Tags</label>
+        <div class="form-check-inline ml-1" repeat.for="tag of allTags">
+          <input type="checkbox" class="form-check-input" value.bind="tag" checked.bind="post.tags">
+          <label class="form-check-label">${tag}</label>
+        </div>
+      </div>
+      <div class="w-25 d-flex align-items-center justify-content-center">
+        <input type="text" class="form-control w-75" value.bind="newTag" placeholder="New Tag Name">
+        <button click.delegate="addTag()" class="btn btn-outline-success w-25">Add</button>
       </div>
     </div>
+
+    <hr />
 
     <button class="btn btn-dark">Create Post</button>
   </form>
