@@ -1,11 +1,7 @@
 <template>
-  <require from="../../resources/elements/blog-post"></require>
-  <div class="alert alert-danger" if.bind="error">
-    ${ error }
-  </div>
-  <div repeat.for="post of posts">
-    <blog-post post.bind="post" if.bind="!error"></blog-post>
-    <a route-href="route: post-view; params.bind: { slug: post.slug }">View Post &raquo;</a>
-    <hr />
-  </div>
+  <!-- <compose view="./post-list.html"}></compose> -->
+  <require from="../../resources/elements/post-list"></require>
+  <post-list error.bind="error" posts.bind="posts">
+    Viewing All Posts
+  </post-list>
 </template>
