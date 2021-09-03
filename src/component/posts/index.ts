@@ -15,7 +15,7 @@ export class Index {
   attached() {
     this.error = '';
     this.postService.allPostPreviews().then(data => {
-      this.posts = data.posts;
+      this.posts = data["posts"];
     }).catch(error => {
       this.error = error.message;
     });

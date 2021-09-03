@@ -15,7 +15,7 @@ export class View {
   activate(params): void {
     this.error = '';
     this.postService.find(params.slug).then(data => {
-      this.post = data.post;
+      this.post = data["post"];
     }).catch(error => {
       this.error = error.message;
     });

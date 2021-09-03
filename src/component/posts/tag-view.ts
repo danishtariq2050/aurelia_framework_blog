@@ -18,7 +18,7 @@ export class TagView {
     this.tag = params.tag;
 
     this.postService.postsByTag(this.tag).then(data => {
-      this.posts = data.posts;
+      this.posts = data["posts"];
     }).catch(error => {
       this.error = error.message;
     });

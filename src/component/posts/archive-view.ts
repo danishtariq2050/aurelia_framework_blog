@@ -18,7 +18,7 @@ export class ArchiveView {
     this.archive = params.archive;
 
     this.postService.postsByArchive(this.archive).then(data => {
-      this.posts = data.posts;
+      this.posts = data["posts"];
     }).catch(error => {
       this.error = error.message;
     });

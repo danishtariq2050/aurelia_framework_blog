@@ -18,12 +18,12 @@ export class About {
     this.errorArchives = '';
 
     this.postService.allTags().then(data => {
-      this.tags = data.tags;
+      this.tags = data["tags"];
     }).catch(error => {
       this.errorTags = error.message;
     });
     this.postService.allArchives().then(data => {
-      this.archives = data.archives;
+      this.archives = data["archives"];
     }).catch(error => {
       this.errorArchives = error.message;
     });
