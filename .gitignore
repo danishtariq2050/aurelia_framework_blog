@@ -27,6 +27,9 @@ Thumbs.db
 !.vscode/launch.json
 !.vscode/extensions.json
 
+# Dependencies
+node_modules
+
 # Compiled files
 /scripts
 /src/environment.ts
