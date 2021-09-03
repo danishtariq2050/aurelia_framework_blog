@@ -35,10 +35,10 @@
         <a class="nav-link ${ router.currentInstruction.config.name === 'login' ? 'active' : '' }" route-href="login" if.bind="!currentUser">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" route-href="login" if.bind="!currentUser">Sign Up</a>
+        <a class="nav-link ${ router.currentInstruction.config.name === 'signup' ? 'active' : '' }" route-href="signup" if.bind="!currentUser">Sign Up</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" route-href="login" if.bind="currentUser">New Post</a>
+        <a class="nav-link ${ router.currentInstruction.config.name === 'newpost' ? 'active' : '' }" route-href="newpost" if.bind="currentUser">New Post</a>
       </li>
       <li class="nav-item" if.bind="currentUser" click.delegate="logout()">
         <a class="nav-link" href="#">Logout</a>

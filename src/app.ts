@@ -46,6 +46,8 @@ export class App {
       { route: 'tag/:tag', name: 'tag-view', moduleId: PLATFORM.moduleName('component/posts/tag-view'), title: 'View Posts by Tag' },
       { route: 'archive/:archive', name: 'archive-view', moduleId: PLATFORM.moduleName('component/posts/archive-view'), title: 'View Posts by Archive' },
       { route: 'login', name: 'login', moduleId: PLATFORM.moduleName('component/auth/login'), title: 'Login' },
+      { route: 'signup', name: 'signup', moduleId: PLATFORM.moduleName('component/auth/signup'), title: 'Sign Up' },
+      { route: 'newpost', name: 'newpost', moduleId: PLATFORM.moduleName('component/posts/create'), title: 'New Post' },
       // { route: 'files/*path', name: 'files', moduleId: PLATFORM.moduleName('files/index'), nav: 0, title: 'Files', href: '#files' }
     ]);
     // config.mapUnknownRoutes('not-found');
