@@ -1,6 +1,6 @@
 import { inject } from 'aurelia-framework';
 import { Post } from 'model/post';
-import { PromiseService } from 'model/Promiseservice';
+// import { PromiseService } from 'model/Promiseservice';
 import { AuthService } from './auth-service';
 
 @inject(AuthService)
@@ -44,7 +44,7 @@ export class PostService {
     }
   }
 
-  allPostPreviews(): Promise<PromiseService> {
+  allPostPreviews() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (this.posts) {
@@ -67,7 +67,7 @@ export class PostService {
     });
   }
 
-  allArchives(): Promise<PromiseService> {
+  allArchives() {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -85,7 +85,7 @@ export class PostService {
     });
   }
 
-  allTags(): Promise<PromiseService> {
+  allTags() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         let tags = [];
@@ -101,29 +101,29 @@ export class PostService {
     });
   }
 
-  create(post: Post): Promise<PromiseService> {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const currentUser = this.authService.currentUser;
-        const slug = this.slugify(post.title);
-        if (currentUser) {
-          this.posts.push({
-            title: post.title,
-            body: post.body,
-            author: currentUser,
-            slug,
-            tags: post.tags,
-            createdAt: new Date()
-          });
-          resolve({ slug });
-        } else {
-          reject(new Error('You must be logged in to create a post.'));
-        }
-      }, this.delay);
-    });
-  }
+  // create(post: Post) {
+  //   return new Promise((resolve, reject) => {
+  //     setTimeout(() => {
+  //       const currentUser = this.authService.currentUser;
+  //       const slug = this.slugify(post.title);
+  //       if (currentUser) {
+  //         this.posts.push({
+  //           title: post.title,
+  //           body: post.body,
+  //           author: currentUser,
+  //           slug,
+  //           tags: post.tags,
+  //           createdAt: new Date()
+  //         });
+  //         resolve({ slug });
+  //       } else {
+  //         reject(new Error('You must be logged in to create a post.'));
+  //       }
+  //     }, this.delay);
+  //   });
+  // }
 
-  find(slug: string): Promise<PromiseService> {
+  find(slug: string) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         const post = this.posts.sort((a, b) => b.createdAt - a.createdAt).find(post => post.slug.toLowerCase() === slug.toLowerCase());
@@ -137,7 +137,7 @@ export class PostService {
     });
   }
 
-  postsByTag(tag: string): Promise<PromiseService> {
+  postsByTag(tag: string) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (!this.posts) {
@@ -149,7 +149,7 @@ export class PostService {
     });
   }
 
-  postsByArchive(archive: string): Promise<PromiseService> {
+  postsByArchive(archive: string) {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -166,16 +166,16 @@ export class PostService {
     });
   }
 
-  slugify(text: string): string {
-    return text.toString().toLowerCase()
-      .replace(/\s+/g, '-')
-      .replace(/[^\w\-]+/g, '')
-      .replace(/\-\-+/g, '-')
-      .replace(/^-+/, '')
-      .replace(/-+$/, '');
-  }
+  // slugify(text: string): string {
+  //   return text.toString().toLowerCase()
+  //     .replace(/\s+/g, '-')
+  //     .replace(/[^\w\-]+/g, '')
+  //     .replace(/\-\-+/g, '-')
+  //     .replace(/^-+/, '')
+  //     .replace(/-+$/, '');
+  // }
 
-  update(post: Post): Promise<PromiseService> {
+  update(post: Post) {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         // Get post based on slug and auther
