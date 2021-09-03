@@ -43,6 +43,7 @@ export class App {
       { route: 'jobs', name: 'jobs', moduleId: PLATFORM.moduleName('jobs/index'), title: 'View Jobs', nav: true },
       // { route: 'posts', name: 'posts', moduleId: PLATFORM.moduleName("component/posts/index"), title: 'All Posts' },
       { route: 'post/:slug', name: 'post-view', moduleId: PLATFORM.moduleName('component/posts/view'), title: 'View Post' },
+      { route: 'post/:slug/edit', name: 'post-edit', moduleId: PLATFORM.moduleName('component/posts/edit'), title: 'Edit Post' },
       { route: 'tag/:tag', name: 'tag-view', moduleId: PLATFORM.moduleName('component/posts/tag-view'), title: 'View Posts by Tag' },
       { route: 'archive/:archive', name: 'archive-view', moduleId: PLATFORM.moduleName('component/posts/archive-view'), title: 'View Posts by Archive' },
       { route: 'login', name: 'login', moduleId: PLATFORM.moduleName('component/auth/login'), title: 'Login' },

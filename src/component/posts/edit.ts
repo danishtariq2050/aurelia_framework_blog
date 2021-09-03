@@ -19,18 +19,18 @@ export class Create {
     this.ea = EventAggregator;
   }
 
-  attached(): void {
-    this.post = {
-      title: '',
-      body: '',
-      tags: []
-    }
-    this.title = 'Create Post'
+  activate(params): void {
+    this.postService.find(params.slug)
+      .then(data => {
+        this.post = data["post"];
+      })
+      .catch(error => { this.error = error.message })
+    this.title = 'Edit Post'
   }
 
-  createPost(): void {
+  editPost(): void {
     this.error = '';
-    this.postService.create(this.post)
+    this.postService.update(this.post)
       .then(data => {
         this.ea.publish('post-updated', Date());
         this.router.navigateToRoute('post-view', { slug: data["slug"] })

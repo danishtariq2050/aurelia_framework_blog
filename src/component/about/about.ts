@@ -10,7 +10,7 @@ export class About {
   errorTags: string;
   errorArchives: string;
   ea: EventAggregator;
-  subscription: any;
+  // subscription: any;
 
   constructor(PostService: PostService, EventAggregator: EventAggregator) {
     this.postService = PostService;
@@ -19,9 +19,9 @@ export class About {
 
   attached(): void {
     this.updateSideBar();
-    this.subscription = this.ea.subscribe('post-updated', updatedAt => {
-      this.updateSideBar();
-    })
+    // this.subscription = this.ea.subscribe('post-updated', updatedAt => {
+    //   this.updateSideBar();
+    // })
 
   }
 
@@ -41,7 +41,7 @@ export class About {
     });
   }
 
-  detached(): void {
-    this.subscription.dispose();
-  }
+  // detached(): void {
+  //   this.subscription.dispose();
+  // }
 }
