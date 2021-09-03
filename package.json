@@ -72,7 +72,6 @@
     "start": "webpack-dev-server --extractCss",
     "build:dev": "webpack --extractCss",
     "heroku-prebuild": "npm install --dev",
-    "heroku-postbuild": "webpack --config webpack.prod.js",
     "analyze": "webpack --env.production --analyze",
     "test": "au test"
   },
