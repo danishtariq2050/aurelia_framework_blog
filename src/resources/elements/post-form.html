@@ -33,7 +33,7 @@
     <hr />
 
     <ul if.bind="controller.errors.length > 0">
-      <li repeat.for="error of controller.errors">${error}</li>
+      <li repeat.for="error of controller.errors" class="text-danger font-weight-bold">${error}</li>
     </ul>
 
     <button class="btn btn-dark" disabled.bind="controller.errors.length > 0">${title}</button>
