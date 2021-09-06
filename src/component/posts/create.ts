@@ -33,8 +33,18 @@ export class Create {
     this.postService.create(this.post)
       .then(data => {
         this.ea.publish('post-updated', Date());
+        this.ea.publish('toast', {
+          type: 'success',
+          message: 'Post has been created!'
+        });
         this.router.navigateToRoute('post-view', { slug: data["slug"] })
       })
-      .catch(error => { this.error = error.message })
+      .catch(error => {
+        this.ea.publish('toast', {
+          type: 'error',
+          message: error.message
+        });
+        // this.error = error.message
+      })
   }
 }

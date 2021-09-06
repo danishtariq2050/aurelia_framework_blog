@@ -1,23 +1,30 @@
 import { PostService } from "common/services/post-service";
 import { inject } from "aurelia-framework";
 import { Post } from "model/post";
+import { EventAggregator } from "aurelia-event-aggregator";
 
-@inject(PostService)
+@inject(PostService, EventAggregator)
 export class Index {
   postService: PostService;
   posts: Post[];
   error: string;
+  ea: EventAggregator;
 
-  constructor(PostService: PostService) {
+  constructor(PostService: PostService, EventAggregator: EventAggregator) {
     this.postService = PostService;
+    this.ea = EventAggregator;
   }
 
-  attached() {
+  attached(): void {
     this.error = '';
     this.postService.allPostPreviews().then(data => {
       this.posts = data["posts"];
     }).catch(error => {
-      this.error = error.message;
-    });
+      this.ea.publish('toast', {
+        type: 'error',
+        message: error.message
+      });
+      // this.error = error.message
+    })
   }
 }

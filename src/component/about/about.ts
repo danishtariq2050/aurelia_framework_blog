@@ -32,12 +32,20 @@ export class About {
     this.postService.allTags().then(data => {
       this.tags = data["tags"];
     }).catch(error => {
-      this.errorTags = error.message;
+      this.ea.publish('toast', {
+        type: 'error',
+        message: error.message
+      });
+      // this.errorTags = error.message;
     });
     this.postService.allArchives().then(data => {
       this.archives = data["archives"];
     }).catch(error => {
-      this.errorArchives = error.message;
+      this.ea.publish('toast', {
+        type: 'error',
+        message: error.message
+      });
+      // this.errorArchives = error.message;
     });
   }
 

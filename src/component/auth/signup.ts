@@ -29,6 +29,12 @@ export class Signup {
         this.ea.publish('user', data.user);
         this.router.navigateToRoute('home')
       })
-      .catch(error => { this.error = error.message })
+      .catch(error => {
+        this.ea.publish('toast', {
+          type: 'error',
+          message: error.message
+        });
+        // this.error = error.message
+      })
   }
 }

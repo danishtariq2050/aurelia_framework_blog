@@ -7,6 +7,7 @@ import { EventAggregator } from "aurelia-event-aggregator";
 // import * as $ from 'jquery';
 // import 'bootstrap/dist/js/bootstrap';
 import * as moment from 'moment';
+import * as toastr from 'toastr';
 import { AuthorizeStep } from "pipeline-steps/authorize-step";
 
 @inject(AuthService, EventAggregator)
@@ -17,6 +18,7 @@ export class App {
   currentUser: string;
   ea: EventAggregator;
   subscription: any;
+  toastSubscription: any;
   error: string;
 
   constructor(AuthService: AuthService, EventAggregator: EventAggregator) {
@@ -29,7 +31,18 @@ export class App {
     this.currentUser = this.authService.currentUser;
     this.subscription = this.ea.subscribe('user', user => {
       this.currentUser = this.authService.currentUser;
-    })
+    });
+
+    this.toastSubscription = this.ea.subscribe('toast', toast => {
+      // toastr.success(toast);
+      toastr[toast.type](toast.message);
+    });
+
+    // this.ea.publish('toast', 'Testing it');
+    // this.ea.publish('toast', {
+    //   type: 'error',
+    //   message: 'Testing it'
+    // });
   }
 
   configureRouter(config: RouterConfiguration, router: Router): void {
@@ -59,15 +72,23 @@ export class App {
 
   detached(): void {
     this.subscription.dispose();
+    this.toastSubscription.dispose();
   }
 
   logout(): void {
     this.authService.logout().then(data => {
       this.ea.publish('user', null);
-      console.log(data.success);
+      this.ea.publish('toast', {
+        type: 'success',
+        message: 'You are successfully Logout!'
+      });
       this.router.navigateToRoute('home');
     }).catch(error => {
-      this.error = error.message;
+      this.ea.publish('toast', {
+        type: 'error',
+        message: error.message
+      });
+      // this.error = error.message;
     })
   }
 }

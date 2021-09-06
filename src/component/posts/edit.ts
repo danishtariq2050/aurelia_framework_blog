@@ -31,7 +31,14 @@ export class Create {
         }
         this.post = dataPost;
       })
-      .catch(error => { this.error = error.message })
+      .catch(error => {
+        this.ea.publish('toast', {
+          type: 'error',
+          message: 'Post not found'
+        });
+        this.router.navigateToRoute('home');
+        // this.error = error.message
+      })
     this.title = 'Edit Post'
   }
 
@@ -40,8 +47,18 @@ export class Create {
     this.postService.update(this.post)
       .then(data => {
         this.ea.publish('post-updated', Date());
+        this.ea.publish('toast', {
+          type: 'success',
+          message: 'Post Updated!'
+        });
         this.router.navigateToRoute('post-view', { slug: data["slug"] })
       })
-      .catch(error => { this.error = error.message })
+      .catch(error => {
+        this.ea.publish('toast', {
+          type: 'error',
+          message: error.message
+        });
+        // this.error = error.message
+      })
   }
 }

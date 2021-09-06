@@ -1,8 +1,9 @@
 import { bindable, inject } from 'aurelia-framework';
 import { ValidationControllerFactory, validationMessages, ValidationRules } from 'aurelia-validation';
 import { PostService } from 'common/services/post-service';
+import { EventAggregator } from "aurelia-event-aggregator";
 
-@inject(PostService, ValidationControllerFactory)
+@inject(PostService, ValidationControllerFactory, EventAggregator)
 
 export class PostForm {
   @bindable title;
@@ -13,11 +14,13 @@ export class PostForm {
   newTag: string;
   postService: PostService;
   controller: any;
+  ea: EventAggregator;
   // error: string;
 
-  constructor(PostService: PostService, ValidationControllerFactory: ValidationControllerFactory) {
+  constructor(PostService: PostService, ValidationControllerFactory: ValidationControllerFactory, EventAggregator: EventAggregator) {
     this.postService = PostService;
     this.controller = ValidationControllerFactory.createForCurrentScope();
+    this.ea = EventAggregator;
   }
 
   attached(): void {
@@ -25,7 +28,11 @@ export class PostForm {
       .then(data => {
         this.allTags = data['tags'];
       }).catch(error => {
-        // this.error = error.message;
+        this.ea.publish('toast', {
+          type: 'error',
+          message: error.message
+        });
+        // this.error = error.message
       })
   }
 
