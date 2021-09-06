@@ -7,6 +7,7 @@ import { EventAggregator } from "aurelia-event-aggregator";
 // import * as $ from 'jquery';
 // import 'bootstrap/dist/js/bootstrap';
 import * as moment from 'moment';
+import { AuthorizeStep } from "pipeline-steps/authorize-step";
 
 @inject(AuthService, EventAggregator)
 export class App {
@@ -24,7 +25,7 @@ export class App {
     this.message = `Hello Everyone! It is here ${moment().format('YYYY')}`;
   }
 
-  attached() {
+  attached(): void {
     this.currentUser = this.authService.currentUser;
     this.subscription = this.ea.subscribe('user', user => {
       this.currentUser = this.authService.currentUser;
@@ -34,6 +35,7 @@ export class App {
   configureRouter(config: RouterConfiguration, router: Router): void {
     this.router = router;
     config.title = 'Aquila360';
+    config.addAuthorizeStep(AuthorizeStep);
     // config.options.pushState = true;
     config.map([
       { route: ['', 'home'], name: 'home', moduleId: PLATFORM.moduleName("component/home/home"), nav: true, title: 'Home' },
@@ -43,26 +45,27 @@ export class App {
       { route: 'jobs', name: 'jobs', moduleId: PLATFORM.moduleName('jobs/index'), title: 'View Jobs', nav: true },
       // { route: 'posts', name: 'posts', moduleId: PLATFORM.moduleName("component/posts/index"), title: 'All Posts' },
       { route: 'post/:slug', name: 'post-view', moduleId: PLATFORM.moduleName('component/posts/view'), title: 'View Post' },
-      { route: 'post/:slug/edit', name: 'post-edit', moduleId: PLATFORM.moduleName('component/posts/edit'), title: 'Edit Post' },
+      { route: 'post/:slug/edit', name: 'post-edit', moduleId: PLATFORM.moduleName('component/posts/edit'), title: 'Edit Post', settings: { auth: true } },
       { route: 'tag/:tag', name: 'tag-view', moduleId: PLATFORM.moduleName('component/posts/tag-view'), title: 'View Posts by Tag' },
       { route: 'archive/:archive', name: 'archive-view', moduleId: PLATFORM.moduleName('component/posts/archive-view'), title: 'View Posts by Archive' },
       { route: 'login', name: 'login', moduleId: PLATFORM.moduleName('component/auth/login'), title: 'Login' },
       { route: 'signup', name: 'signup', moduleId: PLATFORM.moduleName('component/auth/signup'), title: 'Sign Up' },
-      { route: 'newpost', name: 'newpost', moduleId: PLATFORM.moduleName('component/posts/create'), title: 'New Post' },
+      { route: 'newpost', name: 'newpost', moduleId: PLATFORM.moduleName('component/posts/create'), title: 'New Post', settings: { auth: true } },
       // { route: 'files/*path', name: 'files', moduleId: PLATFORM.moduleName('files/index'), nav: 0, title: 'Files', href: '#files' }
     ]);
     // config.mapUnknownRoutes('not-found');
     // console.log('test', this.router.navigation);
   }
 
-  detached() {
+  detached(): void {
     this.subscription.dispose();
   }
 
   logout(): void {
     this.authService.logout().then(data => {
       this.ea.publish('user', null);
-      console.log(data.success)
+      console.log(data.success);
+      this.router.navigateToRoute('home');
     }).catch(error => {
       this.error = error.message;
     })
